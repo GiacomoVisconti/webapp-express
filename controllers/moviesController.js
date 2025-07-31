@@ -1,5 +1,5 @@
 const dotenv = require('dotenv')
-const connection = require('./data/connection')
+const connection = require('../data/connection')
 
 //Create the functions for the CRUD operations
 
