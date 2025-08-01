@@ -26,11 +26,11 @@ function show(req, res) {
 
         //Manage 500 error
         if (err) return res.status(500).json({ error: 'true', message: err.message })
-        movie = result
+        movie = result[0]
 
 
     })
-
+    let reviews
     connection.query(sql_rev, [id], (err, result) => {
 
         //Manage 500 and 400 errors
@@ -45,15 +45,22 @@ function show(req, res) {
                 message: 'Record not found'
             })
         }
-        const movie_rev = [{
-            movie,
-            reviews: result,
-        }]
+
+
+
+        const movie_rev = {
+            id: movie.id,
+            title: movie.title,
+            director: movie.director,
+            genre: movie.genre,
+            image: movie.image,
+            abstract: movie.abstract,
+            reviews: result
+        };
         console.log(movie_rev);
         res.json(movie_rev)
-
-
     })
+
 }
 
 module.exports = { index, show }
