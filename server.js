@@ -6,6 +6,8 @@ const erro404handler = require('./middlewares/error404handler')
 const erro500handler = require('./middlewares/error500handler')
 const cors = require('cors')
 
+app.use(express.json())
+
 //Server Listening
 app.listen(process.env.PORT, () => {
     console.log((`Server is running at http://localhost:${process.env.PORT}`));

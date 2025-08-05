@@ -30,7 +30,7 @@ function show(req, res) {
 
 
     })
-    let reviews
+
     connection.query(sql_rev, [id], (err, result) => {
 
         //Manage 500 and 400 errors
@@ -61,6 +61,37 @@ function show(req, res) {
         res.json(movie_rev)
     })
 
+
 }
 
-module.exports = { index, show }
+function StoreReview(req, res) {
+
+    const { id } = req.params
+    const { movie_id, name, vote, text } = req.body
+    console.log({ movie_id, id, name, vote, text });
+
+
+    const sql = 'INSERT INTO boolean_movies_webapp.reviews (movie_id, name, vote, text) VALUES (?, ?, ?, ?)'
+    connection.execute(sql, [id, name, vote, text], (err, result) => {
+        if (err) {
+            return res.status(500).json({
+                error: true,
+                message: err.message,
+            })
+        }
+
+        res.status(201).json({
+            message: 'Review added successfully',
+            review: {
+
+                movie_id: id,
+                name: name,
+                vote: vote,
+                text: text
+            }
+        })
+    })
+
+}
+
+module.exports = { index, show, StoreReview }

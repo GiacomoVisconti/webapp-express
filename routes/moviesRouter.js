@@ -10,6 +10,7 @@ router.get('/', movieController.index)
 
 //Show
 router.get('/:id', movieController.show)
+router.post('/:id/reviews', movieController.StoreReview)
 
 
 //Export Router
